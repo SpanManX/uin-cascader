@@ -1,8 +1,8 @@
 <template>
 	<view class="content">
-		<cascader :values="value" :list="tree" @confirm="confirm" valueKey="value" placeholder="点击选择设备"></cascader>
+		<cascader :values="value" :list="tree" @confirm="confirm" valueKey="value" placeholder="点击选择"></cascader>
 		<cascader ref="cascader" :list="options" @change="change" @confirm="confirm" valueKey="value"
-			placeholder="点击选择设备(懒加载)">
+			placeholder="点击选择(懒加载)">
 		</cascader>
 	</view>
 </template>

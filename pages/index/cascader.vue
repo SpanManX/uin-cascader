@@ -68,11 +68,12 @@
 			}
 		},
 		watch: {},
-		mounted() {
+		async mounted() {
 			// tree 数据执行
 			if (this.values && this.values.length) {
 				this.setValue = new Set(this.values)
-				this.dataDisplay(this.list)
+				this.currentList = await this.dataDisplay(this.list)
+				this.setTitle()
 				this.selectIndex = this.values.length - 1
 			}
 			// 懒加载执行
@@ -91,19 +92,29 @@
 			dataDisplay(data) {
 				let item = null
 				let num = null
-				for (item of data) {
-					if (this.setValue.has(item[this.valueKey])) {
-						num = this.depth - 1 === -1 ? null : this.depth - 1
-						this.currentList = this.setIndex(data, num)
-						this.currentData.push(item)
-						this.currentTitles.push(item[this.labelKey])
-						this.depth++
-					}
-					if (item.children && item.children.length) {
-						this.dataDisplay(item.children)
+
+				let f = (data, resolve) => {
+					for (item of data) {
+						if (this.setValue.has(item[this.valueKey])) {
+							num = this.depth - 1 === -1 ? null : this.depth - 1
+							this.currentData.push(item)
+							this.currentTitles.push(item[this.labelKey])
+							this.depth++
+							if (this.setValue.size === this.currentTitles.length) {
+								return resolve(this.setIndex(data, num))
+							} else {
+								this.setIndex(data, num) // 保存数据到 saveList
+							}
+						}
+						if (item.children && item.children.length) {
+							f(item.children, resolve)
+						}
 					}
 				}
-				this.setTitle()
+
+				return new Promise(resolve => {
+					f(data, resolve)
+				})
 			},
 
 			/**
