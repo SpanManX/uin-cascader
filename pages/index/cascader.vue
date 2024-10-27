@@ -327,7 +327,7 @@
 		display: flex;
 		position: relative;
 		align-items: center;
-		min-height: 100rpx;
+		height: 100rpx;
 		justify-content: space-between;
 	}
 </style>
