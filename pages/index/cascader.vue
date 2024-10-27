@@ -57,14 +57,11 @@
 		data() {
 			return {
 				isShowModal: false,
-				isLast: false,
 				selectIndex: 0,
-				isEcho: true,
 				currentList: [],
 				currentTitles: [],
 				currentData: [],
 				saveList: [],
-				currentIds: null,
 				title: '',
 				setValue: null,
 				depth: 0
