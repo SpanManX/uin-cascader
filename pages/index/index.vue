@@ -135,18 +135,16 @@
 		methods: {
 			change(val, item, item1) {
 				if (val.length === 1) {
-					setTimeout(()=>{
-						this.$refs.cascader.load(item1, [{
-							label: `${item.label}_二级-1`,
-							value: '121212'
-						}, {
-							label: `${item.label}_二级-2`,
-							value: '6666666666'
-						}, {
-							label: `${item.label}_二级-3`,
-							value: '00000000'
-						}])
-					},1000)
+					this.$refs.cascader.load(item1, [{
+						label: `${item.label}_二级-1`,
+						value: '121212'
+					}, {
+						label: `${item.label}_二级-2`,
+						value: '6666666666'
+					}, {
+						label: `${item.label}_二级-3`,
+						value: '00000000'
+					}])
 				} else if (val.length === 2) {
 					this.$refs.cascader.load(item1, [{
 						label: `${item.label}_三级-1`,
