@@ -222,7 +222,7 @@
 		}
 	}
 </script>
-<style scoped>
+<style lang="scss" scoped>
 	.ellipsis {
 		overflow: hidden;
 		white-space: nowrap;
