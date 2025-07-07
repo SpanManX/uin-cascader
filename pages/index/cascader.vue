@@ -18,6 +18,9 @@
 						{{item}}
 					</view>
 				</view>
+				<view class="input-box">
+					<input placeholder="查询" ref="inputRef" :value="value" @input="change">
+				</view>
 				<view class="cascader-content" @click.stop="">
 					<view v-for="(item,index) in currentList" :key="index" class="cursor"
 						:class="{'active-content':judeg(item.index,item.data[valueKey])}" @click.stop="select(item)">
@@ -56,6 +59,7 @@
 		},
 		data() {
 			return {
+				value: '',
 				isShowModal: false,
 				selectIndex: 0,
 				currentList: [],
@@ -64,7 +68,8 @@
 				saveList: [],
 				title: '',
 				setValue: null,
-				depth: 0
+				depth: 0,
+				timer: null,
 			}
 		},
 		watch: {},
@@ -218,6 +223,26 @@
 			 **/
 			setTitle() {
 				this.title = this.currentTitles.length ? this.currentTitles.join('/') : this.placeholder
+			},
+
+			change(val) {
+				if (this.timer) {
+					clearTimeout(this.timer)
+				}
+				if (val.detail.value === '') {
+					this.currentList = this.saveList[this.selectIndex]
+					return;
+				}
+				let item = null
+				this.timer = setTimeout(() => {
+					let arr = []
+					for (item of this.currentList) {
+						if (item.data[this.labelKey].indexOf(val.detail.value) > -1) {
+							arr.push(item)
+						}
+					}
+					this.currentList = arr
+				}, 200)
 			}
 		}
 	}
@@ -227,6 +252,10 @@
 		overflow: hidden;
 		white-space: nowrap;
 		text-overflow: ellipsis;
+	}
+
+	.input-box {
+		border: 1px solid #ccc
 	}
 
 	.sub-active {
