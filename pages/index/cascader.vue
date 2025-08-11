@@ -72,18 +72,22 @@
 				timer: null,
 			}
 		},
-		watch: {},
-		async mounted() {
-			// tree 数据执行
-			if (this.values && this.values.length) {
-				this.setValue = new Set(this.values)
-				this.currentList = await this.dataDisplay(this.list)
-				this.setTitle()
-				this.selectIndex = this.values.length - 1
-			}
-			// 懒加载执行
-			else {
-				this.currentList = this.setIndex(this.list)
+		watch: {
+			list: {
+				async handler(val) {
+					// tree 数据执行
+					if (this.values && this.values.length) {
+						this.setValue = new Set(this.values)
+						this.currentList = await this.dataDisplay(this.list)
+						this.setTitle()
+						this.selectIndex = this.values.length - 1
+					}
+					// 懒加载执行
+					else {
+						this.currentList = this.setIndex(this.list)
+					}
+				},
+				immediate: true
 			}
 		},
 		methods: {
