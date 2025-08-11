@@ -67,7 +67,7 @@
 				currentData: [],
 				saveList: [],
 				title: '',
-				setValue: null,
+				setValue: new Set(),
 				depth: 0,
 				timer: null,
 			}
