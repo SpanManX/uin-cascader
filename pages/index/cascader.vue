@@ -153,6 +153,7 @@
 			load(node, children) {
 				if (children && children.length) {
 					let data = this.setIndex(children, node.index)
+					this.selectIndex = node.index + 1
 					this.currentList = data
 				}
 			},
@@ -170,7 +171,7 @@
 				}
 
 				// tree 数据执行
-				if (item.data.children && item.data.children.length) {
+				if (item.data && item.data.children && item.data.children.length) {
 					this.currentList = this.setIndex(item.data.children, item.index)
 				}
 
